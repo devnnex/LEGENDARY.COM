@@ -1770,3 +1770,235 @@ th input[type="checkbox"] {
     0 0 60px rgba(0, 255, 170, 0.7),
     inset 0 0 30px rgba(0, 255, 170, 0.25);
 }
+
+
+
+
+/* IOS STYLES TO BE COMPATIBLE WITH IOS IPHONE */
+
+
+/* ==================================================
+   🍎 iOS / SAFARI COMPATIBILITY PATCH
+   (NO rompe desktop ni Android)
+================================================== */
+
+/* 🔹 Backdrop filter Safari */
+.glass,
+.modal-card,
+.loader,
+.loader-card {
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* 🔹 Fix viewport height en iOS */
+body {
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+/* 🔹 Inputs iOS (evita estilos nativos raros) */
+input,
+button,
+textarea,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: inherit;
+}
+
+/* 🔹 Fix scroll horizontal en iOS */
+.glass {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 🔹 Fix font rendering Safari */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 🔹 Fix botones que no respetan padding en iOS */
+button {
+  touch-action: manipulation;
+}
+
+/* 🔹 Fix blur + fixed position (modales) */
+.modal,
+.loader {
+  transform: translateZ(0);
+}
+
+/* 🔹 Fix input focus zoom iOS */
+input,
+select,
+textarea {
+  font-size: 16px; /* evita zoom automático */
+}
+
+/* 🔹 Fix tablas grandes en iOS */
+table {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 🔹 Safari detect (opcional, no rompe nada) */
+@supports (-webkit-touch-callout: none) {
+  body {
+    --ios: 1;
+  }
+}
+
+
+/* ==================================================
+   🍎 iOS / iPad SAFARI PATCH — RESPONSIVE + CHARTS
+   (NO rompe desktop / Android)
+================================================== */
+
+/* 🔹 Backdrop-filter real en Safari */
+.analysis-card,
+.chart-card,
+.gastos-card,
+.glass,
+.kpi-loader-overlay {
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+}
+
+/* 🔹 Fix grid auto-fit en iPad */
+@supports (-webkit-touch-callout: none) {
+  .analysis-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+/* 🔹 Fix canvas charts que no aparecen en iOS */
+.chart-card canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* 🔹 Fix overflow + scroll horizontal */
+.glass {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 🔹 Fix viewport height iOS */
+html, body {
+  height: -webkit-fill-available;
+}
+
+/* 🔹 Fix selects (filters) en Safari */
+.sales-filters select,
+.analysis-filters select {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 10px;
+}
+
+/* 🔹 Fix hover stuck en iOS */
+@media (hover: none) {
+  .analysis-card:hover,
+  .kpi-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* 🔹 Fix animation + blur GPU */
+.analysis-card,
+.chart-card,
+.kpi-card {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* 🔹 Fix font rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 🔹 Evita zoom automático en inputs */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* 🔹 Fix badge + absolute positioning */
+.sell-cart-wrapper {
+  transform: translateZ(0);
+}
+
+
+
+/* ==================================================
+   🍎 iOS SAFARI FINAL PATCH — SELECTS + GLASS + LISTS
+   (NO afecta desktop / Android)
+================================================== */
+
+@supports (-webkit-touch-callout: none) {
+
+  /* 🔹 Safari ignora parcialmente option background */
+  .analysis-filters select option,
+  .sales-filters select option {
+    background-color: #0a244b !important;
+    color: #ffffff !important;
+  }
+
+  /* 🔹 Evita zoom automático en selects / inputs */
+  .analysis-filters select,
+  .sales-filters select,
+  input,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* 🔹 iOS rompe backdrop-filter dentro de selects */
+  .analysis-filters select,
+  .sales-filters select {
+    background-color: rgba(10, 36, 75, 0.85) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* 🔹 Flecha SVG a veces no renderiza */
+  .analysis-filters select,
+  .sales-filters select {
+    background-image: none !important;
+  }
+
+  /* 🔹 Scroll suave en listas (gastos, tablas) */
+  .expense-list,
+  .table-wrapper,
+  #brandProductsTable tbody {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 🔹 Fix listas flex en Safari */
+  .expense-list li {
+    min-height: 28px;
+  }
+
+  /* 🔹 Safari no respeta opacity en emoji button */
+  .expense-list li button {
+    opacity: 0.85;
+  }
+
+  /* 🔹 Fix glass cards */
+  .analysis-card,
+  .chart-card,
+  .glass {
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+  }
+
+  /* 🔹 Reduce glitches de blur en animaciones */
+  .analysis-card,
+  .chart-card,
+  .kpi-card {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
