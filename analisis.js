@@ -1,5 +1,11 @@
  
-const API = "https://script.google.com/macros/s/AKfycbyDfhWm7BKGSBGeirz2IwY4TF0qhtLhRt0uFy4AbrG__R5oKuJDaO7p8ElClQFNL1Ra2g/exec";
+const API = "https://script.google.com/macros/s/AKfycbzXdfQRScblYu79d35yveRB2hPtgD-K70Whj8M6VJ7jyR5FBxjt8O8EvbtR2UsYNR4qtw/exec";
+
+
+
+// if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+//   document.body.classList.add("safari");
+// }
 
 
 /* ================================================================================================================================================================================================================================================================================================================================================================
@@ -883,7 +889,6 @@ function sendClientEmailForm(cliente) {
     });
 }
 
-
 // =======================
 // INICIALIZAR
 // =======================
@@ -1006,5 +1011,4 @@ async function requestPassword() {
   }
 
 });
-
 
