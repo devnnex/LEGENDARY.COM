@@ -1,64 +1,53 @@
 @supports (-webkit-touch-callout: none) {
 
-  /* 🔥 FIX GLOBAL TAPS */
+  /* 🔹 Elimina highlight azul */
   * {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* 🔥 BLUR SEGURO */
-  * {
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-  }
-
-  /* 🔥 SCROLL NATIVO */
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* 🔥 EVITA BLOQUEO DE CLICKS */
+  /* 🔹 Permite taps correctos */
   button,
   a,
   input,
   select,
-  textarea {
+  textarea,
+  [role="button"] {
     touch-action: manipulation;
   }
 
-  /* 🔥 MODALES Y OVERLAYS */
-  .modal,
-  .swal2-container,
-  .neo-backdrop {
+  /* 🔹 Scroll nativo */
+  .glass,
+  .table-wrapper,
+  .modal-card,
+  .swal2-popup {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 🔹 Backdrop SOLO donde debe ir */
+  .glass,
+  .modal-card,
+  .swal2-popup,
+  .neo-glass,
+  .analysis-card,
+  .chart-card {
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+
+  /* 🔹 SweetAlert FIX iOS */
+  .swal2-container {
     display: flex !important;
     align-items: center;
     justify-content: center;
   }
 
-  /* 🔥 ELIMINA TRANSFORM EN VISTAS GRANDES */
-  .view,
-  .modal,
-  .swal2-popup {
-    transform: none !important;
-    will-change: opacity;
-  }
-
-  /* 🔥 PSEUDO-ELEMENTOS NO ROBAN TAPS */
-  *::before,
-  *::after {
+  /* 🔹 Pseudo-elementos NO bloquean */
+  .neo-glass::before,
+  .neo-glass::after,
+  .row-new::after {
     pointer-events: none;
   }
 
-}
-
-
-@supports (-webkit-touch-callout: none) {
-  .modal,
-  .glass,
-  .view,
-  .swal2-popup {
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-  }
 }
 
 
