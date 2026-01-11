@@ -1,55 +1,3 @@
-@supports (-webkit-touch-callout: none) {
-
-  /* 🔹 Elimina highlight azul */
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* 🔹 Permite taps correctos */
-  button,
-  a,
-  input,
-  select,
-  textarea,
-  [role="button"] {
-    touch-action: manipulation;
-  }
-
-  /* 🔹 Scroll nativo */
-  .glass,
-  .table-wrapper,
-  .modal-card,
-  .swal2-popup {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* 🔹 Backdrop SOLO donde debe ir */
-  .glass,
-  .modal-card,
-  .swal2-popup,
-  .neo-glass,
-  .analysis-card,
-  .chart-card {
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
-  }
-
-  /* 🔹 SweetAlert FIX iOS */
-  .swal2-container {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* 🔹 Pseudo-elementos NO bloquean */
-  .neo-glass::before,
-  .neo-glass::after,
-  .row-new::after {
-    pointer-events: none;
-  }
-
-}
-
 
 :root {
   --glass: rgba(255,255,255,0.08);
@@ -67,6 +15,8 @@ body {
   background: radial-gradient(circle at top, #0f172a, #000);
   color: white;
   min-height: 100vh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* ===============================
