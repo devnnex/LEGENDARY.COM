@@ -1,6 +1,6 @@
 {
-  "name": "ROSABELLE APP",
-  "short_name": "ROSABELLE APP",
+  "name": "LEGENDARY APP",
+  "short_name": "LEGENDARY APP",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#000000",
@@ -10,3 +10,4 @@
     { "src": "./images/favicon.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
+
