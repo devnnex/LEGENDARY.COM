@@ -2,6 +2,9 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyaREIBAJxBNdi8B_sxMXdM
 
 
 
+
+
+
 const tbody = document.getElementById("tbody");
 const modal = document.getElementById("modal");
 const form = document.getElementById("form");
@@ -458,7 +461,6 @@ function renderVentas(data) {
     </td>
   </tr>
 `;
-
   }).join("");
 }
 
@@ -1833,7 +1835,6 @@ async function eliminarProducto(id) {
   cargarInventario();
 };
 
-
 /* ======================
    ELIMINAR VENTA (CON VALIDACIÓN)
 ====================== */
@@ -1877,6 +1878,7 @@ async function eliminarVenta(idVenta) {
     hideLoader();
   }
 }
+
 
 
 
@@ -1939,5 +1941,3 @@ async function eliminarVenta(idVenta) {
 //     setTimeout(() => toast.remove(), 300);
 //   }, 3000);
 // }
-
-
