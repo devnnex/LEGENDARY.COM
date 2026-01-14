@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzXdfQRScblYu79d35yveRB2hPtgD-K70Whj8M6VJ7jyR5FBxjt8O8EvbtR2UsYNR4qtw/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyaREIBAJxBNdi8B_sxMXdMcscqWxaXqJzSKv0ZWGr1N-JGKvRaoA650dcSaJTnbeTQww/exec";
 
 
 
@@ -1827,6 +1827,51 @@ async function eliminarProducto(id) {
 };
 
 
+/* ======================
+   ELIMINAR VENTA (CON VALIDACIÓN)
+====================== */
+async function eliminarVenta(idVenta) {
+  const ok = confirm(
+    "¿Seguro que deseas eliminar esta venta?\n" +
+    "El stock será restaurado y los KPIs se recalcularán."
+  );
+
+  if (!ok) return;
+
+  try {
+    showLoader("Eliminando venta...");
+
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "delete_sale",
+        id: idVenta
+      })
+    });
+
+    const data = await res.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "No se pudo eliminar la venta");
+    }
+
+    showToast("Venta eliminada correctamente");
+
+    // 🔄 refrescos necesarios
+    await cargarVentas();       // quita la fila
+    await cargarInventario();   // devuelve stock
+    ventasKPIContainer.dataset.force = "1";
+    await actualizarKPIVentas();
+
+  } catch (err) {
+    console.error(err);
+    showToast("Error al eliminar la venta");
+  } finally {
+    hideLoader();
+  }
+}
+
+
 
 
 
@@ -1887,3 +1932,4 @@ async function eliminarProducto(id) {
 //     setTimeout(() => toast.remove(), 300);
 //   }, 3000);
 // }
+
