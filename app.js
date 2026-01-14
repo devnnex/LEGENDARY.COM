@@ -440,18 +440,25 @@ function renderVentas(data) {
     const descuento = Number(v.descuento || 0);
 
     return `
-      <tr>
-        <td>${v.producto}</td>
-        <td>${v.marca}</td>
-        <td>${v.cantidad}</td>
-        <td>$ ${Number(v.total).toLocaleString("es-CO")}</td>
-        <td class="discount">${descuento > 0 ? `- $ ${descuento.toLocaleString("es-CO")}` : "N/A"}</td>
-        <td>${metodo1}</td>
-        <td>${metodo2}</td>
-        <td>${v.fecha}</td>
-        <td>${v.hora}</td>
-      </tr>
-    `;
+  <tr>
+    <td>${v.producto}</td>
+    <td>${v.marca}</td>
+    <td>${v.cantidad}</td>
+    <td>$ ${Number(v.total).toLocaleString("es-CO")}</td>
+    <td class="discount">${descuento > 0 ? `- $ ${descuento.toLocaleString("es-CO")}` : "N/A"}</td>
+    <td>${metodo1}</td>
+    <td>${metodo2}</td>
+    <td>${v.fecha}</td>
+    <td>${v.hora}</td>
+    <td>
+      <button class="btn-delete-sale"
+        onclick="eliminarVenta('${v.id}')">
+        Eliminar
+      </button>
+    </td>
+  </tr>
+`;
+
   }).join("");
 }
 
@@ -1932,4 +1939,5 @@ async function eliminarVenta(idVenta) {
 //     setTimeout(() => toast.remove(), 300);
 //   }, 3000);
 // }
+
 
