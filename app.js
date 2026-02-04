@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbw7tsZsmF9VK1Ss6XDyulTzG9J3GHSmCBk9P_HHHpLJAf2z1od8LoBRxNti4wD_COVg0Q/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzWyT3i40lUnEj_wKB5F_o1VtMBfiXwZ9NVLQGlio8U5ppYNQSk1JWJbP8CHXpy1UMn3A/exec";
 
 
 
@@ -1984,6 +1984,7 @@ async function eliminarVenta(idVenta) {
 //     setTimeout(() => toast.remove(), 300);
 //   }, 3000);
 // }
+
 
 
 
