@@ -2,38 +2,33 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>🔥Inventario Legendary | Santana Group🔥</title>
+  <title>🌸Inventario Rosabelle | Santana Group🌸</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Responsive + iOS FIX -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
 
-  <!-- Safari / iOS -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="format-detection" content="telephone=no">
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- PWA -->
+  
+  <!-- 🧩 Favicon clásico -->
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+
+  <!-- 📱 Ícono de app (iOS / Android) -->
+  <link rel="apple-touch-icon" href="./images/favicon.png">
+
+  <!-- 🧭 Configuración PWA -->
   <meta name="theme-color" content="#000000">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Legendary App">
+  <meta name="apple-mobile-web-app-title" content="Rosabelle App">
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
-
-  <!-- Manifest -->
+  <!-- 📜 Manifest -->
   <link rel="manifest" href="./manifest.json">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -49,7 +44,7 @@
   <nav class="nav-menu">
     <a class="active" data-view="inventario">Inventario</a>
     <a data-view="ventas">Ventas</a>
-    <a data-view="analisis">Análisis</a>
+    <!-- <a data-view="analisis">Análisis</a> -->
     <!-- <a data-view="agotados">Agotados</a> -->
     <a data-view="clientes">Clientes</a>
   </nav>
@@ -72,9 +67,10 @@
       <div class="page-actions">
         <button id="btnNuevo" class="primary">+ Agregar Producto</button>
         <div class="sell-cart-wrapper"><button class="primary venderSeleccionados" id="btnSellCart" onclick="venderSeleccionados()">Vender seleccionados</button><span id="sellCartBadge" class="sell-cart-badge hidden">0</span></div>
-        <button class="outline">Eliminar Seleccionados (0)</button>
-        <button class="outline">Exportar PDF</button>
-        <button class="outline">Exportar Excel</button>
+        <button id="btnDeleteInventorySelected" class="outline" disabled>Eliminar seleccionados (0)</button>
+
+        <button class="outline" onclick="exportInventoryTablePDF()">Exportar PDF</button>
+        <button class="outline" onclick="exportInventoryTableExcel()">Exportar Excel</button>
       </div>
     </div>
 
@@ -90,12 +86,19 @@
       Total Venta: $ <span id="sellTotal">0</span>
     </div>
 
+    <select id="inventoryFilter" class="inventory-filter">
+  <option value="all">Todos</option>
+  <option value="new">Nuevos (24h)</option>
+  <option value="out">Agotados</option>
+</select>
+
     <!-- INVENTARIO -->
+    
     <section class="glass">
-      <table>
+      <table id="inventoryTable">
         <thead>
           <tr>
-            <th><input type="checkbox"></th>
+            <th><input type="checkbox" id="selectAllInventory"></th>
             <th>Producto</th>
             <th>Marca</th>
             <th>Precio Venta</th>
@@ -154,10 +157,26 @@
   <select id="filterMetodo2">
     <option value="">Todos los métodos 2</option>
   </select>
+  <button
+  id="btnDownloadSalesPDF"
+  class="outline"
+  onclick="exportSalesTablePDF()"
+>
+  📄 Descargar PDF
+</button>
+
+<button
+  id="btnDownloadSalesExcel"
+  class="outline"
+  onclick="exportSalesTableExcel()"
+>
+  📊 Descargar Excel
+</button>
+
   </div>
 
     <section class="glass fade">
-      <table>
+      <table id="salesTable">
         <thead>
           <tr>
             <th>Producto</th>
@@ -185,7 +204,40 @@
      VISTA ANALISIS
 ====================== -->
 <section id="view-analisis" class="view">
-  
+  <!-- =========================
+  REPORTES
+========================= -->
+<!-- <div class="analysis-card report-card">
+
+  <h3>📊 Reportes</h3>
+
+  <div class="report-controls">
+
+    <select id="reportSheet">
+      <option value="inventario">Inventario</option>
+      <option value="ventas">Ventas</option>
+    </select>
+
+    <select id="reportMonth">
+      <option value="">Todos los meses</option>
+    </select>  
+
+    <select id="reportYear">
+      <option value="">Todos los años</option>
+    </select>
+
+    <button class="btn-report excel" onclick="downloadReport('excel')">
+      📥 Excel
+    </button>
+
+      <button class="btn-report pdf" onclick="downloadReport('pdf')">
+      📄 PDF
+    </button>
+
+  </div>
+
+</div> -->
+
 
   <!-- HEADER -->
   <div class="page-header">
@@ -219,9 +271,22 @@
     </div>
 
     <div class="analysis-card info">
-      <h4>Sugerido a Invertir</h4>
-      <span id="kpiSinDescuento">$0</span>
+  <div class="kpi-header">
+    <h4>Sugerido a Invertir</h4>
+
+    <div class="kpi-actions">
+      <button id="resetInvestmentBtn" title="Confirmar inversión">
+        ♻️
+      </button>
+      <button id="revertInvestmentBtn" title="Revertir">
+        ↩️
+      </button>
     </div>
+  </div>
+
+  <span id="kpiSinDescuento">$0</span>
+</div>
+
 
   </div>
 
@@ -733,6 +798,7 @@
 
 
 
+
 <!-- =========================
   FOOTER
 ========================= -->
@@ -744,20 +810,15 @@
 <!-- JS CDN PDF AND EXCEL-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-<!-- JS -->
+<!-- JS CDN FOR EMAIL JS-->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<!-- <script>
-    emailjs.init("R0ZBj0s4dj6Z24O5f"); // 👈 Reemplaza con tu Public Key de EmailJS
-</script> -->
-
 <script>
-  (function(){
-    emailjs.init("R0ZBj0s4dj6Z24O5f");
-  })();
+    emailjs.init("WG36JQzyb-sxnapxf"); // 👈 Reemplaza con tu Public Key de EmailJS
 </script>
 <!-- ✅ SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- ✅ LOCAL FILES  -->
 <script src="analisis.js" defer></script>
 <script src="app.js" defer></script>
 
