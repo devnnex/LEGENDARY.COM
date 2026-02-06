@@ -499,6 +499,237 @@
 </div>
 
 
+<!-- =========================
+  MODAL PRENDAS RECIENTES
+========================= -->
+<div class="modal hidden" id="recentProductsModal">
+  <div class="modal-card">
+
+    <!-- HEADER ARRIBA DE LA TABLA -->
+    <div class="modal-header">
+      <h2>📝 Prendas Agregadas recientes</h2>
+      <span class="modal-subtitle">Últimas 24 horas</span>
+    </div>
+    <br>
+    <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Marca</th>
+          <th>Stock</th>
+          <th>Vendidos</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="recentProductsTbody">
+        <!-- JS -->
+      </tbody>
+    </table>
+    </div>
+ <br>
+    <div class="modal-actions">
+      <button type="button" class="ghost" onclick="closeRecentProductsModal()">
+        Cerrar
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================
+  MODAL MENSAJES / SITUACIONES
+========================= -->
+<div class="modal hidden" id="messagesModal">
+  <form class="modal-card" onsubmit="guardarSituacion(event)">
+    
+    <h2>💬 Mensajes del día</h2>
+
+    <!-- FORMULARIO -->
+<div id="mensajeFormView">
+  <!-- TODO lo que ya tienes -->
+</div>
+
+<!-- HISTORIAL -->
+<div id="mensajeTableView" class="hidden">
+
+  <h2>📋 Historial de situaciones</h2>
+
+  <div class="table-wrapper">
+    <table class="situaciones-table">
+      <thead>
+        <tr>
+          <th>Mensaje</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="situacionesTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="modal-actions">
+    <button class="ghost" onclick="volverFormularioSituacion()">
+      Volver
+    </button>
+  </div>
+
+</div>
+
+
+    <button
+    type="button"
+    class="history-btn"
+    title="Ver historial"
+    onclick="toggleHistorial()"
+  >
+    🕒
+  </button>
+
+    <!-- MENSAJE -->
+    <div class="field-group">
+      <label for="mensajeTexto">Situación / Nota</label>
+      <textarea
+        id="mensajeTexto"
+        rows="5"
+        placeholder="Describe la situación del día..."
+        required
+      ></textarea>
+    </div>
+
+    <!-- SELECTS -->
+    <div class="field-row">
+
+      <div class="field-group">
+        <label for="mensajeTipo">Tipo de mensaje</label>
+        <select id="mensajeTipo">
+          <option value="Nota">Nota</option>
+          <option value="Venta">Venta</option>
+          <option value="Problema">Problema</option>
+          <option value="Cliente">Cliente</option>
+          <option value="Decisión">Decisión</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="mensajeImportancia">Importancia</label>
+        <select id="mensajeImportancia">
+          <option value="1">Baja</option>
+          <option value="2">Media</option>
+          <option value="3">Alta</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- ACCIONES -->
+    <div class="modal-actions">
+      <button type="button" class="ghost" onclick="closeMessagesModal()">
+        Cancelar
+      </button>
+      <button type="submit">
+        Guardar
+      </button>
+    </div>
+
+  </form>
+</div>
+
+
+
+<!-- =========================
+  MODAL HISTORIAL DE SITUACIONES
+========================= -->
+<div class="modal hidden" id="situacionesModal">
+
+  <div class="modal-card situaciones-card">
+
+    <!-- HEADER -->
+    <div class="situaciones-header">
+      <h2>📋 Historial de situaciones</h2>
+      <button class="ghost" onclick="closeSituacionesModal()">Cerrar</button>
+    </div>
+
+    <!-- TABLA -->
+    <div class="situaciones-table-wrapper">
+      <table class="situaciones-table">
+        <thead>
+          <tr>
+            <th>Mensaje</th>
+            <th>Tipo</th>
+            <th>Importancia</th>
+            <th>Fecha</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="historialBody">
+          <!-- JS renderiza -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- ===============================
+     BOTÓN FLOTANTE VENDER (OCULTO POR DEFECTO)
+=============================== -->
+<button
+  id="btnSellFloating"
+  class="sell-floating"
+  onclick="venderSeleccionados()"
+  aria-label="Vender seleccionados"
+>
+  🛒
+  <span id="sellFloatingBadge" class="sell-cart-badge hidden">0</span>
+</button>
+
+ 
+<!-- ===============================
+     BOTÓN FLOTANTE NUEVAS PRENDAS (24H O 48H CAMBIA EL VALOR DEL PARAMETRO)
+=============================== -->
+<button
+  class="sell-floating sell-floating-notes"
+  onclick="openRecentProductsModal(24)"
+  aria-label="Prendas recientes"
+>
+  📝
+  
+</button>
+
+<!-- ===============================
+     BOTÓN FLOTANTE SITUACIONES DEL DÍA
+=============================== -->
+<button
+  class="sell-floating sell-floating-messages"
+  onclick="openMessagesModal()"
+  aria-label="Situaciones del día"
+>
+  💭
+</button>
+
+<!-- ===============================
+    BOTON FLOATING HISTORIAL DE SITUACIONES
+=============================== -->
+
+<!-- <button
+  class="sell-floating sell-floating-situations"
+  onclick="openSituacionesModal()"
+  aria-label="Historial de situaciones"
+>
+  📚
+</button> -->
+
+
 
 
 
@@ -510,6 +741,9 @@
 </footer>
 
 
+<!-- JS CDN PDF AND EXCEL-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <!-- <script>
@@ -537,5 +771,6 @@
 
 </body>
 </html>
+
 
 
